@@ -16,18 +16,45 @@
             "outputPath": "dist/lala-cake",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "src/styles.css"
+              "src/assets/css/style.css",
+              "src/assets/css/responsive.css",
+              "src/assets/vendors/linearicons/style.css",
+              "src/assets/vendors/flat-icon/flaticon.css",
+              "src/assets/css/bootstrap.min.css",
+              "src/assets/vendors/revolution/css/settings.css",
+              "src/assets/vendors/revolution/css/layers.css",
+              "src/assets/vendors/revolution/css/navigation.css",
+              "src/assets/vendors/animate-css/animate.css",
+              "src/assets/vendors/owl-carousel/owl.carousel.min.css",
+              "src/assets/vendors/magnifc-popup/magnific-popup.css",
+              "src/assets/css/font-awesome.min.css"
+
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/js/jquery-3.2.1.min.js",
+              "src/assets/js/popper.min.js",
+              "src/assets/js/bootstrap.min.js",
+              "src/assets/vendors/revolution/js/jquery.themepunch.tools.min.js",
+              "src/assets/vendors/revolution/js/jquery.themepunch.revolution.min.js",
+              "src/assets/vendors/revolution/js/extensions/revolution.extension.actions.min.js",
+              "src/assets/vendors/revolution/js/extensions/revolution.extension.video.min.js",
+              "src/assets/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js",
+              "src/assets/vendors/revolution/js/extensions/revolution.extension.layeranimation.min.js",
+              "src/assets/vendors/revolution/js/extensions/revolution.extension.navigation.min.js",
+              "src/assets/vendors/owl-carousel/owl.carousel.min.js",
+              "src/assets/vendors/magnifc-popup/jquery.magnific-popup.min.js",
+              "src/assets/vendors/datetime-picker/js/moment.min.js",
+              "src/assets/vendors/datetime-picker/js/bootstrap-datetimepicker.min.js",
+              "src/assets/vendors/nice-select/js/jquery.nice-select.min.js",
+              "src/assets/vendors/jquery-ui/jquery-ui.min.js",
+              "src/assets/vendors/lightbox/simpleLightbox.min.js",
+              "src/assets/js/theme.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -74,18 +101,10 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": [],
             "scripts": []
           }
         }
