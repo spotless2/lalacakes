@@ -6669,6 +6669,169 @@ i:before {
   transform: scale(2,2); 
   color: #ff69b4; /* A pink color for the theme */
 }
+
+
+.main_title-custom {
+  text-align: center;
+  background-color: #f8f9fa; /* Light background color */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin-bottom: 20px;
+}
+
+.main_title-custom h2 {
+  font-size: 2.5em;
+  color: #343a40; /* Darker color for the main title */
+  margin-bottom: 10px;
+}
+
+.main_title-custom h3 {
+  font-size: 1.5em;
+  color: #6c757d; /* Slightly lighter color for the price */
+  margin-bottom: 10px;
+}
+
+.main_title-custom h5 {
+  font-size: 1.2em;
+  color: #495057; /* Medium color for the description */
+  margin-bottom: 20px;
+}
+
+.cake-image-custom {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.order_form_row {
+  background-color: #f8f8f8; /* Light grey background */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.custom-select-wrapper {
+  position: relative;
+  width: 100%;
+  z-index: 1; /* Ensure the custom dropdown is above other elements */
+}
+
+.custom-select {
+  width: 100%;
+}
+
+.custom-select-trigger {
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-select-trigger span {
+  flex-grow: 1;
+}
+
+.custom-options {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  top: 100%; /* Position below the trigger */
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 2; /* Ensure the dropdown is above other content */
+}
+
+.custom-option {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.custom-option img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.custom-option:hover {
+  background-color: #f7f7f7;
+}
+
+.container-cakes {
+  display: flex;
+  justify-content: center; /* Centers the cards horizontally */
+  align-items: center; /* Centers the cards vertically */
+  max-width: 100%; /* Ensure the container doesn't exceed the viewport width */
+  padding: 0 15px; /* Add some padding to ensure it doesn't touch the edges */
+}
+
+.custom-card {
+  min-width: 18rem; /* Minimum width for responsiveness */
+  max-width: 20rem; 
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  margin: 0 10px; /* Add some space between the cards */
+  height: 100%; /* Full height based on the parent container */
+  border: 1px solid #ddd; /* Optional: border for visual separation */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: shadow for better appearance */
+}
+
+.custom-card img {
+  width: 100%; /* Full width of the card */
+  height: 12rem; /* Fixed height for the image */
+  object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+
+.custom-card:hover {
+  transform: scale(1.05);
+}
+
+.card-img-top {
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-body {
+  flex: 1; /* Allow the body to grow and fill the remaining space */
+  padding: 1rem; /* Adjust padding as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+}
+
+/* Title and text styling */
+.card-title {
+  margin-bottom: 0.5rem; /* Space between title and text */
+}
+
+
+/* .order_form_row label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+} */
+
+/* .order_form_row input,
+.order_form_row select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+} */
+
 /* End Footer Area css
 ============================================================================================ */
 /*---------------------------------------------------- */

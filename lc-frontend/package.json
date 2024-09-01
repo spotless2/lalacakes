@@ -18,6 +18,8 @@
     "@angular/platform-browser": "^17.3.0",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
+    "@ng-bootstrap/ng-bootstrap": "^16.0.0",
+    "bootstrap-select": "^1.13.18",
     "jquery": "^3.7.1",
     "owl.carousel": "^2.3.4",
     "primeng": "^17.18.9",

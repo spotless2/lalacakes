@@ -1,0 +1,88 @@
+<div class="container panel">
+    <div class="panel-header">
+        <h2>Panou comenzi</h2>
+    </div>
+    <div class="panel-body">
+        <!-- Incoming / In Progress Orders Table -->
+        <div class="table-responsive">
+            <h3>Comenzi primite / in desfasurare</h3>
+            <table class="table table-bordered table-hover order-table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Numar Comanda</th>
+                        <th>Client</th>
+                        <th>Produs</th>
+                        <th>Data Plasarii</th>
+                        <th>Starea Comenzii</th>
+                        <th>Actiuni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let order of incomingOrders">
+                        <tr>
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.buyerName }}</td>
+                            <td>{{ order.productTitle }}</td>
+                            <td>{{ formatDate(order?.orderDate) }}</td>
+                            <td [ngClass]="{
+                                    'status-received': order.status === 'Primita',
+                                    'status-in-progress': order.status === 'In desfasurare',
+                                    'status-completed': order.status === 'Completa'
+                                  }" (click)="changeOrderStatus(order)" style="cursor: pointer;">
+                                {{ order.status }}
+                            </td>
+                            <td>
+                                <button class="btn btn-info btn-sm me-2 mb-2" (click)="openOrderDetails(order)">Detalii comanda</button>
+                                <button class="btn btn-danger btn-sm mb-2" (click)="deleteOrder(order.id)">Sterge comanda</button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <tr *ngIf="incomingOrders.length === 0">
+                        <td colspan="6">Nu sunt disponibile comenzi primite sau in desfasurare.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Completed Orders Table -->
+        <div class="table-responsive mt-4">
+            <h3>Comenzi complete</h3>
+            <table class="table table-bordered table-hover order-table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Numar Comanda</th>
+                        <th>Client</th>
+                        <th>Produs</th>
+                        <th>Data Plasarii</th>
+                        <th>Starea Comenzii</th>
+                        <th>Actiuni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let order of completedOrders">
+                        <tr>
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.buyerName }}</td>
+                            <td>{{ order.productTitle }}</td>
+                            <td>{{ formatDate(order?.orderDate) }}</td>
+                            <td [ngClass]="{
+                                    'status-received': order.status === 'Primita',
+                                    'status-in-progress': order.status === 'In desfasurare',
+                                    'status-completed': order.status === 'Completa'
+                                  }" (click)="changeOrderStatus(order)" style="cursor: pointer;">
+                                {{ order.status }}
+                            </td>
+                            <td>
+                                <button class="btn btn-info btn-sm me-2 mb-2" (click)="openOrderDetails(order)">Detalii comanda</button>
+                                <button class="btn btn-danger btn-sm mb-2" (click)="deleteOrder(order.id)">Sterge comanda</button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <tr *ngIf="completedOrders.length === 0">
+                        <td colspan="6">Nu sunt disponibile comenzi complete.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

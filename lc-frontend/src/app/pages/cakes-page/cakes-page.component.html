@@ -1,226 +1,491 @@
-<section class="banner_area">
-    <div class="container">
-        <div class="banner_text">
-            <h3>Our Cakes</h3>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="cakes.html">Services</a></li>
-            </ul>
-        </div>
+<div class="container-cakes d-flex justify-content-center mt-5 mb-5">
+  <!-- Card 1 -->
+  <div class="card custom-card" (click)="toggleCustomCakeSection()">
+    <img src="assets/img/cake-feature/c-feature-1.jpg" class="card-img-top" alt="Custom Cake">
+    <div class="card-body">
+      <h5 class="card-title">Creează un tort personalizat</h5>
+      <p class="card-text">Apasă aici pentru a-ți crea un tort personalizat.</p>
     </div>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="card custom-card ml-4" (click)="toggleCakeSelectionSection()">
+    <img src="assets/img/cake-feature/c-feature-3.jpg" class="card-img-top" alt="Our Cakes">
+    <div class="card-body">
+      <h5 class="card-title">Alege din torturile noastre</h5>
+      <p class="card-text">Vezi selecția noastră de torturi disponibile.</p>
+    </div>
+  </div>
+</div>
+
+
+
+<section *ngIf="showCustomCakeSection" class="order_custom_cake_area p_100">
+    <div class="container">
+            <div class="main_title">
+              <h2 class="mt-2 mb-2">Personalizare Tort</h2>
+              <h3 class="mt-2 mb-2">Preț per kg: $50 / kg</h3>
+              <h5 class="mt-2 mb-5">Comanda tortul perfect, personalizat dupa preferintele tale!</h5>
+              <p-carousel [value]="images" [numVisible]="4" [numScroll]="1" [circular]="true" [autoplayInterval]="3000">
+                <ng-template pTemplate="item" let-image>
+                  <img [src]="image" alt="Cake Image" class="cake_img-custom">
+                </ng-template>
+              </p-carousel>
+            </div>
+<!-- First Form Section -->
+<form [formGroup]="cakeForm" *ngIf="!showBuyerDetails" (ngSubmit)="goToNextForm()">
+  <div class="order_form_row row">
+    <div class="col-lg-6 col-md-8">
+      <div class="order_form_item">
+        <div class="form-group mt-3">
+          <label for="cakeTitle">Titlu Tort:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="cakeTitle"
+            formControlName="cakeTitle"
+            placeholder="Ex: Tort aniversar"
+          />
+        </div>
+        <div class="form-group">
+          <label for="cakeInterior">Interior Tort:</label>
+          <div class="custom-select-wrapper">
+            <div class="custom-select-trigger" (click)="toggleDropdown()">
+              <span>{{ selectedCakeInterior ? selectedCakeInterior.label : 'Select Option' }}</span>
+            </div>
+            <div class="custom-options" *ngIf="dropdownOpen">
+              <div
+                *ngFor="let option of options"
+                class="custom-option"
+                (click)="selectCakeInterior(option)">
+                <img [src]="option.image" [alt]="option.label">
+                {{ option.label }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" id="cakeInterior" formControlName="cakeInterior">
+
+        <div class="form-group">
+          <label for="cakeCover">Crema Acoperire:</label>
+          <div>
+            <p-multiSelect
+              id="cakeCover"
+              [options]="cakeCoverOptions"
+              formControlName="cakeCover"
+              defaultLabel="Select your options"
+              optionLabel="label"
+              placeholder="Select options"
+              [showHeader]="false">
+            </p-multiSelect>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="personalMessage">Mesaj Personalizat:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="personalMessage"
+            formControlName="personalMessage"
+            placeholder="Ex: La multi ani!"
+          />
+        </div>
+        <div class="form-group">
+          <label for="cakeShape">Forma Tortului:</label>
+          <select class="form-control" id="cakeShape" formControlName="cakeShape">
+            <option value="Rotund">Rotund</option>
+            <option value="Pătrat">Pătrat</option>
+            <option value="Inimă">Inimă</option>
+            <option value="Personalizată">Personalizată</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="additionalSuggestions">Alte Sugestii:</label>
+          <textarea
+            class="form-control"
+            id="additionalSuggestions"
+            rows="3"
+            formControlName="additionalSuggestions"
+            placeholder="Scrie aici...">
+          </textarea>
+        </div>
+        <div class="form-group">
+          <label for="extras">Extra:</label>
+          <div formGroupName="extras">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="candles" formControlName="candles" />
+              <label class="form-check-label" for="candles">Lumanari</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="sparklers" formControlName="sparklers" />
+              <label class="form-check-label" for="sparklers">Artificii</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="deliveryOption">Livrare sau Ridicare:</label>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="deliveryOption"
+              id="delivery"
+              value="delivery"
+              formControlName="deliveryOption"
+            />
+            <label class="form-check-label" for="delivery">Livrare</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="deliveryOption"
+              id="collection"
+              value="collection"
+              formControlName="deliveryOption"
+            />
+            <label class="form-check-label" for="collection">Ridicare</label>
+          </div>
+        </div>
+
+        <div *ngIf="cakeForm.get('deliveryOption')?.value === 'collection'">
+          <p style="font-weight: bold">
+            Punct de ridicare: Strada garoafelor 107, Vladila, Olt, Romania
+          </p>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="pest_btn">
+            Mergi Mai Departe (Next)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Second Form Section -->
+<form [formGroup]="buyerForm" *ngIf="showBuyerDetails" (ngSubmit)="submitOrder()">
+  <div class="order_form_row row">
+    <div class="col-lg-6 col-md-8">
+      <div class="order_form_item">
+        <div class="form-group mt-3">
+          <label for="buyerName">Nume:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="buyerName"
+            formControlName="buyerName"
+            placeholder="Ex: John Doe"
+          />
+        </div>
+        <div class="form-group">
+          <label for="buyerEmail">Email:</label>
+          <input
+            type="email"
+            class="form-control"
+            id="buyerEmail"
+            formControlName="buyerEmail"
+            placeholder="Ex: john.doe@example.com"
+          />
+        </div>
+        <div class="form-group">
+          <label for="buyerPhone">Telefon:</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="buyerPhone"
+            formControlName="buyerPhone"
+            placeholder="Ex: 0712345678"
+          />
+        </div>
+
+        <div *ngIf="cakeForm.get('deliveryOption')?.value === 'delivery'" formGroupName="deliveryDetails">
+          <div class="form-group">
+            <label for="address">Adresa:</label>
+            <input
+              type="text"
+              id="address"
+              formControlName="deliveryAddress"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="city">Oraș:</label>
+            <input
+              type="text"
+              id="city"
+              formControlName="deliveryCity"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="postalCode">Cod Poștal:</label>
+            <input
+              type="text"
+              id="postalCode"
+              formControlName="deliveryPostalCode"
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="orderDate">Data Livrării/Colectării:</label>
+          <br>
+          <p-calendar
+            id="orderDate"
+            formControlName="orderDate"
+            [showTime]="true"
+            hourFormat="24"
+            dateFormat="dd/mm/yy"
+            class="form-group">
+          </p-calendar>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="pest_btn">
+            Plasează Comanda
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+  </div>
 </section>
-<!--================End Main Header Area =================-->
 
 <!--================Blog Main Area =================-->
-<section class="our_cakes_area p_100">
-    <div class="container">
-        <div class="main_title">
-            <h2>Our Cakes</h2>
-            <h5>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</h5>
-        </div>
-        <div class="cake_feature_row row">
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="assets/img/cake-feature/c-feature-1.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="assets/img/cake-feature/c-feature-2.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="assets/img/cake-feature/c-feature-3.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="assets/img/cake-feature/c-feature-9.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="assets/img/cake-feature/c-feature-4.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="assets/img/cake-feature/c-feature-5.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="assets/img/cake-feature/c-feature-6.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="assets/img/cake-feature/c-feature-7.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="assets/img/cake-feature/c-feature-8.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="assets/img/cake-feature/c-feature-9.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="assets/img/cake-feature/c-feature-3.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="assets/img/cake-feature/c-feature-5.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+<section *ngIf="showCakeSelectionSection" class="our_cakes_area p_100">
+  <div class="container">
+    <div class="main_title">
+      <h2>Our Cakes</h2>
+      <h5>
+        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+        accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
+        illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+        explicabo.
+      </h5>
     </div>
+    <div class="cake_feature_row row">
+      <div class="col-lg-3 col-md-4 col-6">
+        <div class="cake_feature_item">
+          <div class="cake_img">
+            <img src="assets/img/cake-feature/c-feature-1.jpg" alt="" />
+          </div>
+          <div class="cake_text">
+            <h4>$29</h4>
+            <h3>Strawberry Cupcakes</h3>
+            <a class="pest_btn" href="#">Add to cart</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <div class="cake_feature_item">
+          <div class="cake_img">
+            <img src="assets/img/cake-feature/c-feature-2.jpg" alt="" />
+          </div>
+          <div class="cake_text">
+            <h4>$29</h4>
+            <h3>Strawberry Cupcakes</h3>
+            <a class="pest_btn" href="#">Add to cart</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <div class="cake_feature_item">
+          <div class="cake_img">
+            <img src="assets/img/cake-feature/c-feature-3.jpg" alt="" />
+          </div>
+          <div class="cake_text">
+            <h4>$29</h4>
+            <h3>Strawberry Cupcakes</h3>
+            <a class="pest_btn" href="#">Add to cart</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <div class="cake_feature_item">
+          <div class="cake_img">
+            <img src="assets/img/cake-feature/c-feature-9.jpg" alt="" />
+          </div>
+          <div class="cake_text">
+            <h4>$29</h4>
+            <h3>Strawberry Cupcakes</h3>
+            <a class="pest_btn" href="#">Add to cart</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <div class="cake_feature_item">
+          <div class="cake_img">
+            <img src="assets/img/cake-feature/c-feature-4.jpg" alt="" />
+          </div>
+          <div class="cake_text">
+            <h4>$29</h4>
+            <h3>Strawberry Cupcakes</h3>
+            <a class="pest_btn" href="#">Add to cart</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <div class="cake_feature_item">
+          <div class="cake_img">
+            <img src="assets/img/cake-feature/c-feature-5.jpg" alt="" />
+          </div>
+          <div class="cake_text">
+            <h4>$29</h4>
+            <h3>Strawberry Cupcakes</h3>
+            <a class="pest_btn" href="#">Add to cart</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <div class="cake_feature_item">
+          <div class="cake_img">
+            <img src="assets/img/cake-feature/c-feature-6.jpg" alt="" />
+          </div>
+          <div class="cake_text">
+            <h4>$29</h4>
+            <h3>Strawberry Cupcakes</h3>
+            <a class="pest_btn" href="#">Add to cart</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <div class="cake_feature_item">
+          <div class="cake_img">
+            <img src="assets/img/cake-feature/c-feature-7.jpg" alt="" />
+          </div>
+          <div class="cake_text">
+            <h4>$29</h4>
+            <h3>Strawberry Cupcakes</h3>
+            <a class="pest_btn" href="#">Add to cart</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <div class="cake_feature_item">
+          <div class="cake_img">
+            <img src="assets/img/cake-feature/c-feature-8.jpg" alt="" />
+          </div>
+          <div class="cake_text">
+            <h4>$29</h4>
+            <h3>Strawberry Cupcakes</h3>
+            <a class="pest_btn" href="#">Add to cart</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <div class="cake_feature_item">
+          <div class="cake_img">
+            <img src="assets/img/cake-feature/c-feature-9.jpg" alt="" />
+          </div>
+          <div class="cake_text">
+            <h4>$29</h4>
+            <h3>Strawberry Cupcakes</h3>
+            <a class="pest_btn" href="#">Add to cart</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <div class="cake_feature_item">
+          <div class="cake_img">
+            <img src="assets/img/cake-feature/c-feature-3.jpg" alt="" />
+          </div>
+          <div class="cake_text">
+            <h4>$29</h4>
+            <h3>Strawberry Cupcakes</h3>
+            <a class="pest_btn" href="#">Add to cart</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <div class="cake_feature_item">
+          <div class="cake_img">
+            <img src="assets/img/cake-feature/c-feature-5.jpg" alt="" />
+          </div>
+          <div class="cake_text">
+            <h4>$29</h4>
+            <h3>Strawberry Cupcakes</h3>
+            <a class="pest_btn" href="#">Add to cart</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 <!--================End Blog Main Area =================-->
 
 <!--================Special Recipe Area =================-->
 <section class="special_recipe_area">
-    <div class="container">
-        <div class="special_recipe_slider owl-carousel">
-            <div class="item">
-                <div class="media">
-                    <div class="d-flex">
-                        <img src="assets/img/recipe/recipe-1.png" alt="">
-                    </div>
-                    <div class="media-body">
-                        <h4>Special Recipe</h4>
-                        <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi equatur uis autem vel eum.</p>
-                        <a class="w_view_btn" href="#">View Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="media">
-                    <div class="d-flex">
-                        <img src="assets/img/recipe/recipe-1.png" alt="">
-                    </div>
-                    <div class="media-body">
-                        <h4>Special Recipe</h4>
-                        <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi equatur uis autem vel eum.</p>
-                        <a class="w_view_btn" href="#">View Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="media">
-                    <div class="d-flex">
-                        <img src="assets/img/recipe/recipe-1.png" alt="">
-                    </div>
-                    <div class="media-body">
-                        <h4>Special Recipe</h4>
-                        <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi equatur uis autem vel eum.</p>
-                        <a class="w_view_btn" href="#">View Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="media">
-                    <div class="d-flex">
-                        <img src="assets/img/recipe/recipe-1.png" alt="">
-                    </div>
-                    <div class="media-body">
-                        <h4>Special Recipe</h4>
-                        <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi equatur uis autem vel eum.</p>
-                        <a class="w_view_btn" href="#">View Details</a>
-                    </div>
-                </div>
-            </div>
+  <div class="container">
+    <div class="special_recipe_slider owl-carousel">
+      <div class="item">
+        <div class="media">
+          <div class="d-flex">
+            <img src="assets/img/recipe/recipe-1.png" alt="" />
+          </div>
+          <div class="media-body">
+            <h4>Special Recipe</h4>
+            <p>
+              Ut enim ad minima veniam, quis nostrum exercitationem ullam
+              corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
+              equatur uis autem vel eum.
+            </p>
+            <a class="w_view_btn" href="#">View Details</a>
+          </div>
         </div>
+      </div>
+      <div class="item">
+        <div class="media">
+          <div class="d-flex">
+            <img src="assets/img/recipe/recipe-1.png" alt="" />
+          </div>
+          <div class="media-body">
+            <h4>Special Recipe</h4>
+            <p>
+              Ut enim ad minima veniam, quis nostrum exercitationem ullam
+              corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
+              equatur uis autem vel eum.
+            </p>
+            <a class="w_view_btn" href="#">View Details</a>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="media">
+          <div class="d-flex">
+            <img src="assets/img/recipe/recipe-1.png" alt="" />
+          </div>
+          <div class="media-body">
+            <h4>Special Recipe</h4>
+            <p>
+              Ut enim ad minima veniam, quis nostrum exercitationem ullam
+              corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
+              equatur uis autem vel eum.
+            </p>
+            <a class="w_view_btn" href="#">View Details</a>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="media">
+          <div class="d-flex">
+            <img src="assets/img/recipe/recipe-1.png" alt="" />
+          </div>
+          <div class="media-body">
+            <h4>Special Recipe</h4>
+            <p>
+              Ut enim ad minima veniam, quis nostrum exercitationem ullam
+              corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
+              equatur uis autem vel eum.
+            </p>
+            <a class="w_view_btn" href="#">View Details</a>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 <!--================End Special Recipe Area =================-->

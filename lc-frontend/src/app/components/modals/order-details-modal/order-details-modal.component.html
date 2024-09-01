@@ -1,0 +1,33 @@
+<div id="myModal" class="modal-header" style="z-index: inherit;">
+    <h4 class="modal-title">Order Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Order ID:</strong> {{ order?.id }}</p>
+    <p><strong>Customer Name:</strong> {{ order?.buyerName }}</p>
+    <p><strong>Product Title:</strong> {{ order?.productTitle }}</p>
+    <p><strong>Status:</strong> {{ order?.status }}</p>
+    <hr>
+    <p><strong>Cake Title:</strong> {{ order?.cakeTitle }}</p>
+    <p><strong>Cake Interior:</strong> {{ order?.cakeInterior }}</p>
+    <p><strong>Cake Cover:</strong> {{ order?.cakeCover }}</p>
+    <p><strong>Cake Shape:</strong> {{ order?.cakeShape }}</p>
+    <p><strong>Custom Message:</strong> {{ order?.personalMessage }}</p>
+    <p><strong>Other Suggestions:</strong> {{ order?.additionalSuggestions }}</p>
+    <p><strong>Extra:</strong> 
+      <span *ngIf="order?.extras?.candles">Lumanari</span>
+      <span *ngIf="order?.extras?.sparklers">Artificii</span>
+    </p>
+    <p><strong>Delivery Option:</strong> {{ order?.deliveryOption }}</p>
+    <p><strong>Order Date:</strong> {{ order?.orderDate }}</p>
+    <hr>
+    <p><strong>Orderer City:</strong> {{ order?.deliveryDetails?.deliveryCity }}</p>
+    <p><strong>Orderer Address:</strong> {{ order?.deliveryDetails?.deliveryAddress }}</p>
+    <p><strong>Orderer Phone Number:</strong> {{ order?.buyerPhone }}</p>
+    <p><strong>Orderer Email:</strong> {{ order?.buyerEmail }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
+  </div>
