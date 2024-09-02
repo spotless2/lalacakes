@@ -2,87 +2,167 @@
     <div class="panel-header">
         <h2>Panou comenzi</h2>
     </div>
+
+<!-- Mini Navbar -->
+<div class="mini-navbar">
+    <button class="btn me-2" 
+            [ngClass]="{'active-tab': selectedTab === 'orders'}" 
+            (click)="selectedTab = 'orders'">Comenzi</button>
+    
+    <button class="btn" 
+            [ngClass]="{'active-tab': selectedTab === 'products'}" 
+            (click)="selectedTab = 'products'">Produse</button>
+  </div>
+  
+
     <div class="panel-body">
-        <!-- Incoming / In Progress Orders Table -->
-        <div class="table-responsive">
-            <h3>Comenzi primite / in desfasurare</h3>
-            <table class="table table-bordered table-hover order-table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Numar Comanda</th>
-                        <th>Client</th>
-                        <th>Produs</th>
-                        <th>Data Plasarii</th>
-                        <th>Starea Comenzii</th>
-                        <th>Actiuni</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <ng-container *ngFor="let order of incomingOrders">
+        <!-- Orders Section -->
+        <div *ngIf="selectedTab === 'orders'">
+            <!-- Incoming / In Progress Orders Table -->
+            <div class="table-responsive">
+                <h3>Comenzi primite / in desfasurare</h3>
+                <table class="table table-bordered table-hover order-table">
+                    <thead class="thead-dark">
                         <tr>
-                            <td>{{ order.id }}</td>
-                            <td>{{ order.buyerName }}</td>
-                            <td>{{ order.productTitle }}</td>
-                            <td>{{ formatDate(order?.orderDate) }}</td>
-                            <td [ngClass]="{
-                                    'status-received': order.status === 'Primita',
-                                    'status-in-progress': order.status === 'In desfasurare',
-                                    'status-completed': order.status === 'Completa'
-                                  }" (click)="changeOrderStatus(order)" style="cursor: pointer;">
-                                {{ order.status }}
-                            </td>
-                            <td>
-                                <button class="btn btn-info btn-sm me-2 mb-2" (click)="openOrderDetails(order)">Detalii comanda</button>
-                                <button class="btn btn-danger btn-sm mb-2" (click)="deleteOrder(order.id)">Sterge comanda</button>
-                            </td>
+                            <th>Numar Comanda</th>
+                            <th>Client</th>
+                            <th>Produs</th>
+                            <th>Data Plasarii</th>
+                            <th>Starea Comenzii</th>
+                            <th>Actiuni</th>
                         </tr>
-                    </ng-container>
-                    <tr *ngIf="incomingOrders.length === 0">
-                        <td colspan="6">Nu sunt disponibile comenzi primite sau in desfasurare.</td>
-                    </tr>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let order of incomingOrders">
+                            <tr>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.buyerName }}</td>
+                                <td>{{ order.productTitle }}</td>
+                                <td>{{ formatDate(order?.orderDate) }}</td>
+                                <td [ngClass]="{
+                                        'status-received': order.status === 'Primita',
+                                        'status-in-progress': order.status === 'In desfasurare',
+                                        'status-completed': order.status === 'Completa'
+                                      }" (click)="changeOrderStatus(order)" style="cursor: pointer;">
+                                    {{ order.status }}
+                                </td>
+                                <td>
+                                    <button class="btn btn-info btn-sm me-2 mb-2" (click)="openOrderDetails(order)">Detalii comanda</button>
+                                    <button class="btn btn-danger btn-sm mb-2" (click)="deleteOrder(order.id)">Sterge comanda</button>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <tr *ngIf="incomingOrders.length === 0">
+                            <td colspan="6">Nu sunt disponibile comenzi primite sau in desfasurare.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Completed Orders Table -->
+            <div class="table-responsive mt-4">
+                <h3>Comenzi complete</h3>
+                <table class="table table-bordered table-hover order-table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Numar Comanda</th>
+                            <th>Client</th>
+                            <th>Produs</th>
+                            <th>Data Plasarii</th>
+                            <th>Starea Comenzii</th>
+                            <th>Actiuni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let order of completedOrders">
+                            <tr>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.buyerName }}</td>
+                                <td>{{ order.productTitle }}</td>
+                                <td>{{ formatDate(order?.orderDate) }}</td>
+                                <td [ngClass]="{
+                                        'status-received': order.status === 'Primita',
+                                        'status-in-progress': order.status === 'In desfasurare',
+                                        'status-completed': order.status === 'Completa'
+                                      }" (click)="changeOrderStatus(order)" style="cursor: pointer;">
+                                    {{ order.status }}
+                                </td>
+                                <td>
+                                    <button class="btn btn-info btn-sm me-2 mb-2" (click)="openOrderDetails(order)">Detalii comanda</button>
+                                    <button class="btn btn-danger btn-sm mb-2" (click)="deleteOrder(order.id)">Sterge comanda</button>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <tr *ngIf="completedOrders.length === 0">
+                            <td colspan="6">Nu sunt disponibile comenzi complete.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <!-- Completed Orders Table -->
-        <div class="table-responsive mt-4">
-            <h3>Comenzi complete</h3>
-            <table class="table table-bordered table-hover order-table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Numar Comanda</th>
-                        <th>Client</th>
-                        <th>Produs</th>
-                        <th>Data Plasarii</th>
-                        <th>Starea Comenzii</th>
-                        <th>Actiuni</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <ng-container *ngFor="let order of completedOrders">
+        <!-- Products Section -->
+        <div *ngIf="selectedTab === 'products'">
+            <h3>Products</h3>
+            <button class="btn btn-custom-success" (click)="openAddProductForm()">Adaugă produs</button>
+
+            <!-- Cakes Category -->
+            <h4>Cakes</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover order-table">
+                    <thead class="thead-dark">
                         <tr>
-                            <td>{{ order.id }}</td>
-                            <td>{{ order.buyerName }}</td>
-                            <td>{{ order.productTitle }}</td>
-                            <td>{{ formatDate(order?.orderDate) }}</td>
-                            <td [ngClass]="{
-                                    'status-received': order.status === 'Primita',
-                                    'status-in-progress': order.status === 'In desfasurare',
-                                    'status-completed': order.status === 'Completa'
-                                  }" (click)="changeOrderStatus(order)" style="cursor: pointer;">
-                                {{ order.status }}
-                            </td>
-                            <td>
-                                <button class="btn btn-info btn-sm me-2 mb-2" (click)="openOrderDetails(order)">Detalii comanda</button>
-                                <button class="btn btn-danger btn-sm mb-2" (click)="deleteOrder(order.id)">Sterge comanda</button>
-                            </td>
+                            <th>Product Name</th>
+                            <th>Product Type</th>
+                            <th>Actions</th>
                         </tr>
-                    </ng-container>
-                    <tr *ngIf="completedOrders.length === 0">
-                        <td colspan="6">Nu sunt disponibile comenzi complete.</td>
-                    </tr>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let product of cakes">
+                            <tr>
+                                <td>{{ product.title }}</td>
+                                <td>{{ product.type }}</td>
+                                <td>
+                                    <button class="btn btn-info btn-sm me-2 mb-2" (click)="editProduct(product)">Edit</button>
+                                    <button class="btn btn-danger btn-sm mb-2" (click)="deleteProduct(product.id || 0)">Delete</button>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <tr *ngIf="products.length === 0">
+                            <td colspan="3">No cakes available.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Plates Category -->
+            <h4>Plates</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover order-table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Nume Produs</th>
+                            <th>Tip Produs</th>
+                            <th>Actiuni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let product of plates">
+                            <tr>
+                                <td>{{ product.title }}</td>
+                                <td>{{ product.type }}</td>
+                                <td>
+                                    <button class="btn btn-info btn-sm me-2 mb-2" (click)="editProduct(product)">Edit</button>
+                                    <button class="btn btn-danger btn-sm mb-2" (click)="deleteProduct(product.id)">Delete</button>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <tr *ngIf="plates.length === 0">
+                            <td colspan="3">No plates available.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

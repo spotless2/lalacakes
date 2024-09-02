@@ -5,12 +5,23 @@ body {
     margin-top: 50px;
 }
 .panel-header {
-    background-color: #d4756e;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Gradient from orange to coral */
     color: white;
-    padding: 15px;
-    border-radius: 5px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-}
+    margin-bottom: 20px;
+  }
+  
+  .panel-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
 .panel-body {
     background-color: white;
     padding: 20px;
@@ -101,3 +112,70 @@ body {
         margin-bottom: 0.5rem;
       }
   }
+
+  .panel-header {
+    margin-bottom: 20px;
+  }
+  
+  .mini-navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .mini-navbar .btn {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Vibrant gradient from orange to light coral */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  
+  .mini-navbar .btn:hover {
+    background: linear-gradient(135deg, #ff6a4a, #fd8d71); /* Darker gradient on hover for a rich effect */
+    transform: translateY(-2px);
+  }
+  
+  .mini-navbar .btn.active-tab {
+    background: linear-gradient(135deg, #ff6a4a, #fd8d71); /* Darker gradient to highlight active tab */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .mini-navbar .btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 126, 95, 0.5); /* Light orange focus outline */
+  }
+  .btn-custom-success {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Gradient from orange to coral */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 15px;
+  }
+  
+  .btn-custom-success:hover {
+    background: linear-gradient(135deg, #ff6a4a, #fd8d71); /* Darker gradient on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .btn-custom-success:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 126, 95, 0.5); /* Light orange focus outline */
+  }
+  

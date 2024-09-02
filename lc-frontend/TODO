@@ -1,7 +1,3 @@
-- endpoint for delete, changing order status
-- panel\ui impl for the endpoints above
-- cakes\ui for ordering specific cakes.
-- plates\ui for ordering
-- panel\ui impl to add/edit/remove products
-- login/logout for panel
+- plates\ui+be order process
+- cakes\ui+be order process
 - text edit

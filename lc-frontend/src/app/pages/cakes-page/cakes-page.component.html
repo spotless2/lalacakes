@@ -156,7 +156,7 @@
 
         <div class="form-group">
           <button type="submit" class="pest_btn">
-            Mergi Mai Departe (Next)
+            Inainte
           </button>
         </div>
       </div>
@@ -244,6 +244,9 @@
         </div>
 
         <div class="form-group">
+          <button type="button" class="pest_btn" (click)="goBackToFirstForm()">
+            Inapoi
+          </button>
           <button type="submit" class="pest_btn">
             Plasează Comanda
           </button>
@@ -268,147 +271,15 @@
       </h5>
     </div>
     <div class="cake_feature_row row">
-      <div class="col-lg-3 col-md-4 col-6">
+      <div class="col-lg-3 col-md-4 col-6" *ngFor="let cake of cakes">
         <div class="cake_feature_item">
           <div class="cake_img">
-            <img src="assets/img/cake-feature/c-feature-1.jpg" alt="" />
+            <img [src]="getImageUrl(cake.image)" alt="{{ cake.title }}" />
           </div>
           <div class="cake_text">
-            <h4>$29</h4>
-            <h3>Strawberry Cupcakes</h3>
-            <a class="pest_btn" href="#">Add to cart</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-6">
-        <div class="cake_feature_item">
-          <div class="cake_img">
-            <img src="assets/img/cake-feature/c-feature-2.jpg" alt="" />
-          </div>
-          <div class="cake_text">
-            <h4>$29</h4>
-            <h3>Strawberry Cupcakes</h3>
-            <a class="pest_btn" href="#">Add to cart</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-6">
-        <div class="cake_feature_item">
-          <div class="cake_img">
-            <img src="assets/img/cake-feature/c-feature-3.jpg" alt="" />
-          </div>
-          <div class="cake_text">
-            <h4>$29</h4>
-            <h3>Strawberry Cupcakes</h3>
-            <a class="pest_btn" href="#">Add to cart</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-6">
-        <div class="cake_feature_item">
-          <div class="cake_img">
-            <img src="assets/img/cake-feature/c-feature-9.jpg" alt="" />
-          </div>
-          <div class="cake_text">
-            <h4>$29</h4>
-            <h3>Strawberry Cupcakes</h3>
-            <a class="pest_btn" href="#">Add to cart</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-6">
-        <div class="cake_feature_item">
-          <div class="cake_img">
-            <img src="assets/img/cake-feature/c-feature-4.jpg" alt="" />
-          </div>
-          <div class="cake_text">
-            <h4>$29</h4>
-            <h3>Strawberry Cupcakes</h3>
-            <a class="pest_btn" href="#">Add to cart</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-6">
-        <div class="cake_feature_item">
-          <div class="cake_img">
-            <img src="assets/img/cake-feature/c-feature-5.jpg" alt="" />
-          </div>
-          <div class="cake_text">
-            <h4>$29</h4>
-            <h3>Strawberry Cupcakes</h3>
-            <a class="pest_btn" href="#">Add to cart</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-6">
-        <div class="cake_feature_item">
-          <div class="cake_img">
-            <img src="assets/img/cake-feature/c-feature-6.jpg" alt="" />
-          </div>
-          <div class="cake_text">
-            <h4>$29</h4>
-            <h3>Strawberry Cupcakes</h3>
-            <a class="pest_btn" href="#">Add to cart</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-6">
-        <div class="cake_feature_item">
-          <div class="cake_img">
-            <img src="assets/img/cake-feature/c-feature-7.jpg" alt="" />
-          </div>
-          <div class="cake_text">
-            <h4>$29</h4>
-            <h3>Strawberry Cupcakes</h3>
-            <a class="pest_btn" href="#">Add to cart</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-6">
-        <div class="cake_feature_item">
-          <div class="cake_img">
-            <img src="assets/img/cake-feature/c-feature-8.jpg" alt="" />
-          </div>
-          <div class="cake_text">
-            <h4>$29</h4>
-            <h3>Strawberry Cupcakes</h3>
-            <a class="pest_btn" href="#">Add to cart</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-6">
-        <div class="cake_feature_item">
-          <div class="cake_img">
-            <img src="assets/img/cake-feature/c-feature-9.jpg" alt="" />
-          </div>
-          <div class="cake_text">
-            <h4>$29</h4>
-            <h3>Strawberry Cupcakes</h3>
-            <a class="pest_btn" href="#">Add to cart</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-6">
-        <div class="cake_feature_item">
-          <div class="cake_img">
-            <img src="assets/img/cake-feature/c-feature-3.jpg" alt="" />
-          </div>
-          <div class="cake_text">
-            <h4>$29</h4>
-            <h3>Strawberry Cupcakes</h3>
-            <a class="pest_btn" href="#">Add to cart</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-6">
-        <div class="cake_feature_item">
-          <div class="cake_img">
-            <img src="assets/img/cake-feature/c-feature-5.jpg" alt="" />
-          </div>
-          <div class="cake_text">
-            <h4>$29</h4>
-            <h3>Strawberry Cupcakes</h3>
-            <a class="pest_btn" href="#">Add to cart</a>
+            <h4>{{ cake.price | currency }}</h4>
+            <h3>{{ cake.title }}</h3>
+            <a class="pest_btn_cst" href="#" (click)="addToCart(cake)">Comanda</a>
           </div>
         </div>
       </div>

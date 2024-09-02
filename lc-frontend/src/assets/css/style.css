@@ -6815,7 +6815,51 @@ i:before {
   margin-bottom: 0.5rem; /* Space between title and text */
 }
 
+.cake_feature_item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  text-align: center;
+}
 
+.cake_img {
+  width: 100%;
+  height: 200px; /* Set a fixed height for the image container */
+  overflow: hidden;
+}
+
+.cake_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image covers the container without distortion */
+}
+
+.cake_text {
+  padding: 10px;
+}
+
+.cake_text h4 {
+  margin: 10px 0;
+}
+
+.cake_text h3 {
+  margin: 10px 0;
+}
+
+.pest_btn_cst {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #ffffff;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pest_btn_cst:hover {
+  background-color: #0056b3;
+}
 /* .order_form_row label {
   display: block;
   margin-bottom: 5px;

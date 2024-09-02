@@ -12,6 +12,10 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { CalendarModule } from 'primeng/calendar';
 import { CarouselModule } from 'primeng/carousel';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { Product } from '../../interfaces/Product';
+import { ProductService } from '../../services/product.service';
+ // Apply custom style
 
 interface Option {
   label: string;
@@ -33,7 +37,6 @@ interface Option {
     CarouselModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
   ],
   templateUrl: './cakes-page.component.html',
 })
@@ -75,8 +78,10 @@ export class CakesPageComponent {
   step: number = 1;
   images: string[];
   showBuyerDetails = false;
+  cakes: Product[] = [];
+  private baseUrl: string = 'http://localhost:8080/uploads'; // Adjust the base URL as needed
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private snackBar: MatSnackBar, private productService: ProductService) {
     this.cakeCoverOptions = [
       { label: 'Fondant', value: 'Fondant' },
       { label: 'Frișcă', value: 'Frișcă' },
@@ -95,6 +100,7 @@ export class CakesPageComponent {
   }
 
   ngOnInit() {
+    this.fetchCakes();
     // Listen for clicks outside to close the dropdown
     document.addEventListener('click', this.onClickOutside.bind(this));
     this.cakeForm = this.fb.group({
@@ -152,6 +158,26 @@ export class CakesPageComponent {
     document.removeEventListener('click', this.onClickOutside.bind(this));
   }
 
+  fetchCakes(): void {
+    this.productService.getProducts().subscribe(
+      (data: Product[]) => {
+        this.cakes = data.filter(product => product.type === 'Tort');
+      },
+      (error) => {
+        console.error('Error fetching cakes', error);
+      }
+    );
+  }
+
+  getImageUrl(imageName: string): string {
+    return `${this.baseUrl}/${imageName}`;
+  }
+
+  addToCart(cake: Product): void {
+    console.log('Adding to cart:', cake);
+    // Implement add to cart functionality here
+  }
+
   toggleDropdown(): void {
     this.dropdownOpen = !this.dropdownOpen;
   }
@@ -198,12 +224,19 @@ export class CakesPageComponent {
     this.showCakeSelectionSection = !this.showCakeSelectionSection;
   }
   goToNextForm() {
-    console.log(this.cakeForm.value)
     if (this.cakeForm.valid) {
       this.showBuyerDetails = true;
     } else {
-      console.log('Cake form is invalid');
+      this.snackBar.open('Nu ai completat toate campurile', 'Inchide', {
+        duration: 4000, // Duration in milliseconds
+        verticalPosition: 'top', // Position of the snackbar
+        horizontalPosition: 'center', // Position of the snackbar
+      });
     }
+  }
+
+  goBackToFirstForm() {
+    this.showBuyerDetails = false;
   }
 
   submitOrder() {
@@ -216,11 +249,19 @@ export class CakesPageComponent {
     this.http.post('http://localhost:8080/orderCustomCake', orderDetails)
       .subscribe(
         (response) => {
-          console.log('Order submitted successfully:', response);
+          this.snackBar.open('Comanda a fost plasata cu succes!', 'Inchide', {
+            duration: 5000, // Duration in milliseconds
+            verticalPosition: 'top', // Position of the snackbar
+            horizontalPosition: 'center', // Position of the snackbar
+          });
           // Add any additional logic or handling for a successful order submission
         },
         (error) => {
-          console.error('Error submitting order:', error);
+          this.snackBar.open(`A aparut o eroare.`, 'Inchide', {
+            duration: 5000, // Duration in milliseconds
+            verticalPosition: 'top', // Position of the snackbar
+            horizontalPosition: 'center', // Position of the snackbar
+          });
           // Add any error handling logic or display error messages to the user
         }
       );

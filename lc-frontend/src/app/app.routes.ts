@@ -5,6 +5,8 @@ import { PlatesPageComponent } from './pages/plates-page/plates-page/plates-page
 import { ContactPageComponent } from './pages/contact-page/contact-page/contact-page.component';
 import { AboutPageComponent } from './pages/about-page/about-page/about-page.component';
 import { PanelPageComponent } from './pages/panel-page/panel-page.component';
+import { AuthGuard } from './auth.guard';
+import { LoginComponent } from './components/login/login.component';
 
 export const routes: Routes = [
     { path: '', component: MainPageComponent},
@@ -13,5 +15,7 @@ export const routes: Routes = [
     { path: 'plates', component: PlatesPageComponent},
     { path: 'about', component: AboutPageComponent},
     { path: 'contact', component: ContactPageComponent},
-    { path: 'panel', component: PanelPageComponent},
+    { path: 'panel', component: PanelPageComponent, canActivate: [AuthGuard] },
+    { path: 'login', component: LoginComponent },
+    { path: '**', redirectTo: '' }
 ];

@@ -4,6 +4,7 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SliderInitService } from './services/slider-init.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',

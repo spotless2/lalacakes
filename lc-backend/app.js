@@ -1,14 +1,24 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors"); // Import the cors package
-const sequelize = require("./database"); // Import the sequelize instance
-const customCakeOrderRoutes = require("./routes/customCakeOrderRoutes"); // Import the routes
+const cors = require("cors");
+const sequelize = require("./database");
+const customCakeOrderRoutes = require("./routes/customCakeOrderRoutes");
+const productRoutes = require("./routes/productRoutes");
+const fs = require('fs'); // Import the fs module
+const path = require('path'); // Import the path module
 
 const app = express();
 
-app.use(cors()); // Enable CORS for all routes
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json()); // Add this line to parse JSON bodies
+app.use(bodyParser.json());
+
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir);
+}
+
+app.use('/uploads', express.static(uploadsDir));
 
 // Sync the models with the database
 sequelize.sync()
@@ -21,6 +31,10 @@ sequelize.sync()
 
 // Use the routes
 app.use(customCakeOrderRoutes);
+app.use(productRoutes);
+
+app.use('/uploads', express.static(uploadsDir));
+
 
 // Start the server
 const port = 8080;
