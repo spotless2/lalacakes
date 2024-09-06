@@ -1,9 +1,25 @@
 // controllers/customCakeOrderController.js
 const CustomCakeOrder = require('../models/CustomCakeOrder');
+const Order = require('../models/Order');
+
+exports.createCustomCakeOrder = async (req, res) => {
+    try {
+        const order = await CustomCakeOrder.create(req.body);
+        res.status(201).json({
+            message: 'Custom cake order created successfully',
+            order
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error creating custom cake order',
+            error
+        });
+    }
+};
 
 exports.createOrder = async (req, res) => {
     try {
-        const order = await CustomCakeOrder.create(req.body);
+        const order = await Order.create(req.body);
         res.status(201).json({
             message: 'Custom cake order created successfully',
             order

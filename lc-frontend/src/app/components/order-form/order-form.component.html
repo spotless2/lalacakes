@@ -1,0 +1,147 @@
+<div class="container">
+  <div *ngIf="selectedProduct && !showOrderFormPart2">
+    <div class="selected_plate_details">
+      <h4 class="plate_title">{{ selectedProduct.title }}</h4>
+      <div class="plate_content">
+        <div class="plate_img_form">
+          <img
+            [src]="getImageUrl(selectedProduct.image)"
+            alt="{{ selectedProduct.title }}"
+          />
+        </div>
+        <div class="plate_info">
+          <p class="plate_description">
+            <span>Descriere:</span> {{ selectedProduct.description }}
+          </p>
+          <p class="plate_price">
+            <span>Pret: </span>{{ selectedProduct.price | currency }}
+          </p>
+          <p class="plate_ingredients">
+            <span>Ingrediente: </span>{{ selectedProduct.ingredients }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="orderForm" (ngSubmit)="submitOrder()">
+      <label for="gramaj">Gramaj (kg):</label>
+      <div class="container">
+        <input
+          type="number"
+          id="gramaj"
+          formControlName="gramaj"
+          name="gramaj"
+          step="0.5"
+          min="0.5"
+        />
+        
+
+        <label for="cantitate">Cantitate:</label>
+        <input
+          type="number"
+          id="cantitate"
+          formControlName="cantitate"
+          name="cantitate"
+          step="1"
+          min="1"
+        />
+
+        <label for="sugestii">Sugestii:</label>
+        <textarea
+          id="sugestii"
+          formControlName="sugestii"
+          name="sugestii"
+        ></textarea>
+        <label>Metoda de livrare:</label>
+        <div class="radio-group">
+          <label for="livrare">
+            <input
+              type="radio"
+              id="livrare"
+              formControlName="metodaLivrare"
+              name="metodaLivrare"
+              value="livrare"
+            />
+            Livrare
+          </label>
+          <label for="ridicare">
+            <input
+              type="radio"
+              id="ridicare"
+              formControlName="metodaLivrare"
+              name="metodaLivrare"
+              value="ridicare"
+            />
+            Ridicare
+          </label>
+        </div>
+        <div class="form-buttons">
+          <button type="button" class="pest_btn mb-2 mr-2" (click)="goBack()">
+            Inapoi
+          </button>
+          <button type="button" class="pest_btn mb-2" (click)="nextStep()">
+            Inainte
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="showOrderFormPart2">
+    <form [formGroup]="orderForm">
+      <div class="container">
+        <label for="nume">Nume:</label>
+        <input type="text" id="nume" formControlName="nume" name="nume" />
+        <div *ngIf="orderForm.get('nume')?.invalid && orderForm.get('nume')?.touched" class="error">
+          Numele este obligatoriu.
+        </div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" formControlName="email" name="email" />
+        <div *ngIf="orderForm.get('email')?.invalid" class="error">
+          Email-ul introdus este invalid.
+        </div>
+        <label for="telefon">Telefon:</label>
+        <input type="tel" id="telefon" formControlName="telefon" name="telefon" />
+        <div *ngIf="orderForm.get('telefon')?.invalid && orderForm.get('telefon')?.touched" class="error">
+          Numarul de telefon este obligatoriu.
+        </div>
+        <label for="adresa">Adresa:</label>
+        <input type="text" id="adresa" formControlName="adresa" name="adresa" />
+        <div *ngIf="orderForm.get('adresa')?.invalid && orderForm.get('adresa')?.touched" class="error">
+          Adresa este obligatorie.
+        </div>
+        <label for="oras">Oras:</label>
+        <input type="text" id="oras" formControlName="oras" name="oras" />
+        <div *ngIf="orderForm.get('oras')?.invalid && orderForm.get('oras')?.touched" class="error">
+          Orasul este obligatoriu.
+        </div>
+        <label for="codPostal">Cod Postal:</label>
+        <input type="text" id="codPostal" formControlName="codPostal" name="codPostal" />
+  
+        <label for="data">Data Livrării/Colectării:</label>
+        <br />
+        <p-calendar
+          id="data"
+          formControlName="data"
+          [showTime]="true"
+          hourFormat="24"
+          dateFormat="dd/mm/yy"
+        ></p-calendar>
+        <div *ngIf="orderForm.get('data')?.invalid && orderForm.get('data')?.touched" class="error">
+          Trebuie sa alegeti data si ora.
+        </div>
+        <div class="form-buttons">
+          <button
+            type="button"
+            class="pest_btn mb-2 mr-2"
+            (click)="goBackToFirstForm()"
+          >
+            Inapoi
+          </button>
+          <button type="submit" class="pest_btn mb-2" (click)="submitOrder()">
+            Pleaseaza Comanda
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

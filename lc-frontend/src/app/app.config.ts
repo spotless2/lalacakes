@@ -12,9 +12,11 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { initializeApp } from 'firebase/app';
 import { environment } from '../environments/environment';
 import { authInterceptor } from './auth.interceptor';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),

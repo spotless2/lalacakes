@@ -7,15 +7,24 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CalendarModule } from 'primeng/calendar';
 import { CarouselModule } from 'primeng/carousel';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import {
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+  MatSnackBar,
+  MatSnackBarModule,
+} from '@angular/material/snack-bar';
 import { Product } from '../../interfaces/Product';
 import { ProductService } from '../../services/product.service';
- // Apply custom style
+// Apply custom style
 
 interface Option {
   label: string;
@@ -81,7 +90,13 @@ export class CakesPageComponent {
   cakes: Product[] = [];
   private baseUrl: string = 'http://localhost:8080/uploads'; // Adjust the base URL as needed
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private snackBar: MatSnackBar, private productService: ProductService) {
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private snackBar: MatSnackBar,
+    private productService: ProductService,
+    private router: Router
+  ) {
     this.cakeCoverOptions = [
       { label: 'Fondant', value: 'Fondant' },
       { label: 'Frișcă', value: 'Frișcă' },
@@ -112,7 +127,7 @@ export class CakesPageComponent {
       additionalSuggestions: [''],
       extras: this.fb.group({
         candles: [false],
-        sparklers: [false]
+        sparklers: [false],
       }),
       deliveryOption: ['', Validators.required],
     });
@@ -124,18 +139,18 @@ export class CakesPageComponent {
       deliveryDetails: this.fb.group({
         deliveryAddress: [''],
         deliveryCity: [''],
-        deliveryPostalCode: ['']
+        deliveryPostalCode: [''],
       }),
-      orderDate: ['', Validators.required]
+      orderDate: ['', Validators.required],
     });
 
-    this.cakeForm.get('deliveryOption')?.valueChanges.subscribe(value => {
+    this.cakeForm.get('deliveryOption')?.valueChanges.subscribe((value) => {
       const deliveryDetails = this.buyerForm.get('deliveryDetails');
       if (deliveryDetails) {
         const deliveryAddress = deliveryDetails.get('deliveryAddress');
         const deliveryCity = deliveryDetails.get('deliveryCity');
         const deliveryPostalCode = deliveryDetails.get('deliveryPostalCode');
-    
+
         if (value === 'delivery') {
           deliveryAddress?.setValidators(Validators.required);
           deliveryCity?.setValidators(Validators.required);
@@ -145,7 +160,7 @@ export class CakesPageComponent {
           deliveryCity?.clearValidators();
           deliveryPostalCode?.clearValidators();
         }
-    
+
         deliveryAddress?.updateValueAndValidity();
         deliveryCity?.updateValueAndValidity();
         deliveryPostalCode?.updateValueAndValidity();
@@ -161,7 +176,7 @@ export class CakesPageComponent {
   fetchCakes(): void {
     this.productService.getProducts().subscribe(
       (data: Product[]) => {
-        this.cakes = data.filter(product => product.type === 'Tort');
+        this.cakes = data.filter((product) => product.type === 'Tort');
       },
       (error) => {
         console.error('Error fetching cakes', error);
@@ -173,9 +188,8 @@ export class CakesPageComponent {
     return `${this.baseUrl}/${imageName}`;
   }
 
-  addToCart(cake: Product): void {
-    console.log('Adding to cart:', cake);
-    // Implement add to cart functionality here
+  orderCake(cake: Product): void {
+    this.router.navigate(['/order', cake.id]); // Navigate to the new route
   }
 
   toggleDropdown(): void {
@@ -244,9 +258,10 @@ export class CakesPageComponent {
     formValue.cakeCover = this.getSelectedCakeCoverLabels();
     const orderDetails = {
       ...this.cakeForm.value,
-      ...this.buyerForm.value
+      ...this.buyerForm.value,
     };
-    this.http.post('http://localhost:8080/orderCustomCake', orderDetails)
+    this.http
+      .post('http://localhost:8080/orderCustomCake', orderDetails)
       .subscribe(
         (response) => {
           this.snackBar.open('Comanda a fost plasata cu succes!', 'Inchide', {

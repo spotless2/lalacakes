@@ -1,38 +1,47 @@
-      
-        <!--================Recipe Menu list Area =================-->
-        <section class="price_list_area p_100">
-        	<div class="container">
-        		<div class="price_list_inner">
-        			<div class="single_pest_title">
-        				<h2>Platouri</h2>
-        				<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-        			</div>
-					<div class="row">
-						<div class="col-lg-6" *ngFor="let plate of plates">
-						  <div class="discover_item_inner">
-							<div class="discover_item">
-							  <div class="plate_img">
-								<img [src]="getImageUrl(plate.image)" alt="{{ plate.title }}" />
-							  </div>
-							  <h4>{{ plate.title }}</h4>
-							  <p>{{ plate.description }} <span>{{ plate.price | currency }}</span></p>
-							  <button class="order_btn" (click)="orderPlate(plate)">Order</button>
-							</div>
-						  </div>
-						</div>
-					  </div>
-       				<div class="row our_bakery_image">
-						<div class="col-md-4 col-6">
-							<img class="img-fluid" src="img/our-bakery/bakery-1.jpg" alt="">
-						</div>
-						<div class="col-md-4 col-6">
-							<img class="img-fluid" src="img/our-bakery/bakery-2.jpg" alt="">
-						</div>
-						<div class="col-md-4 col-6">
-							<img class="img-fluid" src="img/our-bakery/bakery-3.jpg" alt="">
-						</div>
-					</div>
-        		</div>
-        	</div>
-        </section>
-        <!--================End Main Header Area =================-->
+<!--================Recipe Menu list Area =================-->
+<section class="price_list_area p_100">
+  <div class="container">
+    <div class="price_list_inner">
+      <div class="single_pest_title">
+        <h2>Platouri</h2>
+        <p>
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
+          ab illo inventore veritatis et quasi architecto beatae vitae dicta
+          sunt explicabo.
+        </p>
+      </div>
+      <div class="row">
+        <div class="col-lg-6" *ngFor="let plate of plates">
+          <div class="discover_item_inner">
+            <div class="discover_item">
+              <div class="plate_img">
+                <img [src]="getImageUrl(plate.image)" alt="{{ plate.title }}" />
+              </div>
+              <h4>{{ plate.title }}</h4>
+              <div class="description-price-container">
+                <p class="description">{{ plate.description }}</p>
+                <p class="price">{{ plate.price | currency }}</p>
+              </div>
+              <button class="pest_btn" (click)="orderPlate(plate)">
+                Comanda
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row our_bakery_image">
+        <div class="col-md-4 col-6">
+          <img class="img-fluid" src="img/our-bakery/bakery-1.jpg" alt="" />
+        </div>
+        <div class="col-md-4 col-6">
+          <img class="img-fluid" src="img/our-bakery/bakery-2.jpg" alt="" />
+        </div>
+        <div class="col-md-4 col-6">
+          <img class="img-fluid" src="img/our-bakery/bakery-3.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--================End Main Header Area =================-->
